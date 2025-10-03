@@ -11,18 +11,21 @@
         <h1>Meus Gastos Mensais</h1>
         
         <form id="form-gasto">
-            <label for="descricao">Descrição:</label> 
+            <label for="descricao">Descrição (Ex: Netflix):</label> 
             <input type="text" id="descricao" required> 
             
             <label for="categoria">Categoria:</label>
-            <select id="categoria">
-                <option value="Casa">Casa</option>
-                <option value="Lazer">Lazer</option>
-                <option value="Perfumeria">Perfumeria</option>
-                <option value="Uber">Uber</option>
-                <option value="Comida">Comida</option>
-                <option value="Outros">Outros</option>
-            </select>
+            <div id="categoria-input-group">
+                <select id="categoria">
+                    <option value="Casa">Casa</option>
+                    <option value="Lazer">Lazer</option>
+                    <option value="Comida">Comida</option>
+                    <option value="Outros">Outros</option>
+                </select>
+                
+                <input type="text" id="nova-categoria-input" placeholder="Nova Categoria">
+                <button type="button" id="btn-adicionar-categoria">Adicionar</button>
+            </div>
             
             <label for="valor">Valor (R$):</label>
             <input type="number" id="valor" step="0.01" min="0" required>
@@ -31,24 +34,51 @@
         </form>
         
         <hr>
-
-        <h2>Histórico de Transações</h2>
-        <ul id="historico-transacoes">
-            </ul>
+        
+        <div id="filtro-container">
+            <label for="filtro-categoria">Filtrar por Categoria:</label>
+            <select id="filtro-categoria">
+                <option value="todos">Mostrar Todos os Gastos</option>
+            </select>
+        </div>
         
         <hr>
+
+       <hr>
+
+<ul id="historico-transacoes-cabecalho">
+    <li style="width:35%;">Descrição</li>
+    <li style="width:25%;">Categoria</li>
+    <li style="width:20%; text-align:right;">Valor</li>
+    <li style="width:15%; text-align:right;">Ações</li>
+</ul>
+<h2>Histórico de Transações</h2> 
+<ul id="historico-transacoes">
+</ul>
         
         <h2>Resumo por Categoria</h2>
         <ul id="resumo-gastos">
-            </ul>
+        </ul>
 
         <hr>
         
         <p>Total de Gastos: <strong id="total-gastos">R$ 0.00</strong></p>
         
         <button id="btn-limpar" type="button" class="btn-limpar">Zerar Todos os Gastos</button> 
-    </div>
 
+        <button id="btn-exportar" type="button" class="btn-secundario">Exportar para CSV</button>
+        
+        <button id="btn-visualizar-grafico" type="button" class="btn-secundario">Visualizar Gráfico</button>
+
+        <div id="grafico-container" hidden>
+            <hr>
+            <h2>Distribuição de Gastos por Categoria</h2>
+            <canvas id="grafico-categorias"></canvas>
+        </div>
+        
+    </div> 
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

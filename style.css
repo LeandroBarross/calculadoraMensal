@@ -88,13 +88,26 @@ hr {
 }
 /* Estilo para botões pequenos no histórico */
 .btn-historico {
+    /* Define um tamanho pequeno e fixo */
+    width: 25px; 
+    height: 25px;
+    
+    /* Remove preenchimento e margens internas que podem ter vindo de estilos globais */
+    padding: 2px;
+    margin: 0; 
+    
+    /* Define o tamanho da fonte para o símbolo */
+    font-size: 0.8em; 
+    
+    /* Remove a borda para um visual mais limpo */
     border: none;
     cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-    margin-left: 5px;
-    transition: background-color 0.2s;
+    border-radius: 4px; /* Pequeno arredondamento */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .btn-excluir {
     background-color: #dc3545;
@@ -116,4 +129,116 @@ hr {
 
 .btn-editar:hover {
     background-color: #e0a800;
+}
+/* Configura o grupo de inputs de categoria para ser flexível */
+#categoria-input-group {
+    display: flex;
+    gap: 5px; /* Espaço entre os elementos */
+}
+
+/* Faz o select e o input de nova categoria crescerem */
+#categoria-input-group select {
+    flex-grow: 1; 
+}
+
+#categoria-input-group #nova-categoria-input {
+    width: 120px; /* Largura fixa para o campo de texto */
+}
+
+/* Estilo para o botão de adicionar categoria */
+#btn-adicionar-categoria {
+    width: auto; /* Permite que o botão se ajuste ao conteúdo */
+    padding: 8px 10px;
+    margin-top: 0;
+    font-size: 0.9em;
+    background-color: #007bff; /* Azul */
+}
+
+#btn-adicionar-categoria:hover {
+    background-color: #0056b3;
+}
+/* Estilo para o container do filtro */
+#filtro-container {
+    padding: 15px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#filtro-container label {
+    font-weight: 600;
+    white-space: nowrap; /* Impede que a label quebre a linha */
+}
+
+#filtro-container select {
+    flex-grow: 1; /* Faz o select ocupar o espaço restante */
+}
+/* Estilo para o novo botão de Ação Secundária (Visualizar Gráfico) */
+.btn-secundario {
+    background-color: #6c757d; /* Cor cinza, neutra */
+    margin-top: 10px;
+}
+
+.btn-secundario:hover {
+    background-color: #5a6268;
+}
+
+/* Garante que o container do gráfico não cause overflow quando exibido */
+#grafico-container {
+    padding-top: 20px;
+}
+/* Adicione (ou ajuste) no seu style.css se quiser uma cor específica para a Exportação */
+#btn-exportar {
+    background-color: #17a2b8; /* Cor azul-ciano para exportação/download */
+    margin-top: 10px;
+}
+
+#btn-exportar:hover {
+    background-color: #138496;
+}
+/* -------------------------------------- */
+/* ESTILOS PARA SIMULAR A TABELA/GRADE */
+/* -------------------------------------- */
+
+/* 1. Estilo para o cabeçalho do Histórico (Para dar a sensação de coluna) */
+#historico-transacoes-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    background-color: #f8f9fa; /* Um cinza claro para o fundo do cabeçalho */
+    border: 1px solid #dee2e6; /* Borda externa da tabela */
+    border-bottom: 2px solid #adb5bd; /* Borda mais grossa na parte de baixo */
+    padding: 10px;
+    margin-bottom: 0; /* Remove espaço extra entre cabeçalho e lista */
+    list-style: none;
+    font-size: 0.9em;
+}
+
+/* Garante que o UL da lista não tenha margem em cima */
+#historico-transacoes {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #dee2e6; /* Borda lateral e inferior do container */
+    border-top: none; /* Não repete a borda de cima que já está no cabeçalho */
+}
+
+/* 2. Estilo para cada Linha (<li>) */
+#historico-transacoes li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e9ecef; /* Linha de separação entre os gastos */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.1s;
+}
+
+/* Efeito de destaque ao passar o mouse sobre a linha (Hover) */
+#historico-transacoes li:hover {
+    background-color: #f8f9fa; 
+}
+
+/* Remove a borda inferior do último item da lista */
+#historico-transacoes li:last-child {
+    border-bottom: none;
 }

@@ -90,8 +90,8 @@ hr {
 
 /* Estilo para botões pequenos no histórico */
 .btn-historico {
-    width: 15px; 
-    height: 25px;
+   width: 15px; 
+    height: 15px;
     padding: 2px;
     margin: 0; 
     font-size: 0.8em; 

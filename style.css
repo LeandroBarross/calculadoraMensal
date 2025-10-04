@@ -78,9 +78,9 @@ hr {
     color: #dc3545; /* Cor para destacar o total */
 }
 
-/* Novo estilo para o botão de limpar */
+/* Estilo do botão de limpar */
 .btn-limpar {
-    background-color: #dc3545; /* Cor vermelha para "perigo" / reset */
+    background-color: #dc3545; /* Cor vermelha para reset */
     margin-top: 15px;
 }
 
@@ -90,26 +90,18 @@ hr {
 
 /* Estilo para botões pequenos no histórico */
 .btn-historico {
-    /* Define um tamanho pequeno e fixo */
-    width: 25px; 
+    width: 15px; 
     height: 25px;
-    
-    /* Remove preenchimento e margens internas que podem ter vindo de estilos globais */
     padding: 2px;
     margin: 0; 
-    
-    /* Define o tamanho da fonte para o símbolo */
     font-size: 0.8em; 
-    
-    /* Remove a borda para um visual mais limpo */
     border: none;
     cursor: pointer;
-    border-radius: 4px; /* Pequeno arredondamento */
+    border-radius: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 
 .btn-excluir {
     background-color: #dc3545;
@@ -123,7 +115,7 @@ hr {
 }
 
 .btn-editar {
-    background-color: #ffc107; /* Amarelo para edição/alerta */
+    background-color: #ffc107; /* Amarelo para edição */
     color: #333;
     padding: 4px 6px;
     font-size: 0.8em;
@@ -133,7 +125,7 @@ hr {
     background-color: #e0a800;
 }
 
-/* Configurações do GRUPO DE CATEGORIA (Lado a Lado e Estilo) */
+/* Configurações do grupo de categoria (lado a lado e estilo) */
 #categoria-input-group {
     display: flex; 
     gap: 0.75rem;
@@ -143,11 +135,8 @@ hr {
 
 #categoria-input-group select,
 #categoria-input-group #nova-categoria-input {
-    /* Permite que ambos cresçam para ocupar o espaço */
     flex-grow: 1; 
     min-width: 100px;
-    
-    /* Estilos padronizados */
     padding: 0.65rem 1rem;
     font-size: 1rem;
     border: 1.5px solid var(--cor-borda, #d1d1d1);
@@ -159,8 +148,8 @@ hr {
 
 #categoria-input-group select:focus,
 #categoria-input-group #nova-categoria-input:focus {
-    border-color: var(--cor-primaria, #000000);
-    box-shadow: 0 0 6px rgba(45, 45, 45, 0.79);
+    border-color: var(--cor-primaria, #001eff);
+    box-shadow: 0 0 6px rgba(1, 65, 255, 0.79);
     outline: none;
 }
 
@@ -168,8 +157,7 @@ hr {
     padding: 0.65rem 1.1rem;
     font-size: 1rem;
     font-weight: 600;
-    /* Mude para a cor primária (azul) */
-    background-color: var(--cor-primaria, #007bff); /* Usando a variável ou o fallback azul */
+    background-color: var(--cor-primaria, #007bff);
     border-radius: 8px;
     border: none;
     cursor: pointer;
@@ -179,15 +167,14 @@ hr {
 
 #btn-adicionar-categoria:hover,
 #btn-adicionar-categoria:focus {
-    /* Mude para a cor primária escura (azul mais escuro) */
-    background-color: var(--cor-primaria-escura, #0056b3); /* Usando a variável ou o fallback azul escuro */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.7); /* Ajusta a sombra para combinar com o azul */
+    background-color: var(--cor-primaria-escura, #0056b3);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
     outline: none;
 }
 
 /* Estilo para o container do filtro */
 #filtro-container {
-    padding: 15px 0 0; /* padding original */
+    padding: 15px 0 0;
     margin-top: 1rem;
     display: flex;
     align-items: center;
@@ -203,8 +190,8 @@ hr {
 }
 
 #filtro-container select {
-    flex-grow: 1; /* Permite que o select do filtro ocupe o espaço restante */
-    padding: 0.6rem 1rem; /* Padronizado o padding */
+    flex-grow: 1;
+    padding: 0.6rem 1rem;
     font-size: 1rem;
     border-radius: 6px;
     border: 1.5px solid var(--cor-borda, #d1d1d1);
@@ -219,9 +206,9 @@ hr {
     outline: none;
 }
 
-/* Estilo para o novo botão de Ação Secundária (Visualizar Gráfico) */
+/* Botão de ação secundária (Visualizar Gráfico) */
 .btn-secundario {
-    background-color: #6c757d; /* Cor cinza, neutra */
+    background-color: #6c757d;
     margin-top: 10px;
 }
 
@@ -229,14 +216,14 @@ hr {
     background-color: #5a6268;
 }
 
-/* Garante que o container do gráfico não cause overflow quando exibido */
+/* Container do gráfico */
 #grafico-container {
     padding-top: 20px;
 }
 
-/* Estilo para o botão de Exportação */
+/* Botão de exportação */
 #btn-exportar {
-    background-color: #17a2b8; /* Cor azul-ciano para exportação/download */
+    background-color: #17a2b8;
     margin-top: 10px;
 }
 
@@ -244,11 +231,9 @@ hr {
     background-color: #138496;
 }
 
-/* -------------------------------------- */
-/* ESTILOS PARA O HISTÓRICO (Com Scroll) */
-/* -------------------------------------- */
+/* Estilos para o histórico com scroll */
 
-/* 1. Estilo para o cabeçalho do Histórico */
+/* Cabeçalho do histórico */
 #historico-transacoes-cabecalho {
     display: flex;
     justify-content: space-between;
@@ -265,23 +250,19 @@ hr {
     border-top-right-radius: 4px;
 }
 
-/* Garante que o UL da lista não tenha margem em cima e ADICIONA SCROLL */
+/* Lista do histórico com scroll */
 #historico-transacoes {
     padding: 0;
     margin: 0;
     border: 1px solid #dee2e6;
     border-top: none;
-    
-    /* === LÓGICA DA BARRA DE ROLAGEM AQUI === */
     max-height: 250px; 
     overflow-y: auto;
-    
-    /* Arredondamento inferior para a lista */
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
 }
 
-/* 2. Estilo para cada Linha (<li>) */
+/* Cada linha do histórico */
 #historico-transacoes li {
     padding: 8px 10px;
     border-bottom: 1px solid #e9ecef;
@@ -292,12 +273,32 @@ hr {
     transition: background-color 0.1s;
 }
 
-/* Efeito de destaque ao passar o mouse sobre a linha (Hover) */
 #historico-transacoes li:hover {
     background-color: #f8f9fa; 
 }
 
-/* Remove a borda inferior do último item da lista */
 #historico-transacoes li:last-child {
     border-bottom: none;
+}
+
+/* Botões de edição/exclusão de categoria na vertical */
+#lista-gerenciamento-categorias li > div {
+    display: flex;
+    flex-direction: column; 
+    gap: 2px; 
+    align-items: flex-end; 
+}
+
+/* Linhas da lista de categorias */
+#lista-gerenciamento-categorias li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e9ecef; 
+    list-style: none;
+}
+
+/* Botões individuais de categoria pequenos */
+.btn-editar-cat, .btn-excluir-cat {
+    width: 25px; 
+    height: 25px;
+    font-size: 0.8em; 
 }

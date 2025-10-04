@@ -77,6 +77,7 @@ hr {
     font-size: 1.5em;
     color: #dc3545; /* Cor para destacar o total */
 }
+
 /* Novo estilo para o botão de limpar */
 .btn-limpar {
     background-color: #dc3545; /* Cor vermelha para "perigo" / reset */
@@ -86,6 +87,7 @@ hr {
 .btn-limpar:hover {
     background-color: #c82333;
 }
+
 /* Estilo para botões pequenos no histórico */
 .btn-historico {
     /* Define um tamanho pequeno e fixo */
@@ -130,13 +132,11 @@ hr {
 .btn-editar:hover {
     background-color: #e0a800;
 }
-/* Configura o grupo de inputs de categoria para ser flexível */
+
+/* Configurações do GRUPO DE CATEGORIA (Lado a Lado e Estilo) */
 #categoria-input-group {
-    /* CHAVE: Ativa o alinhamento horizontal */
     display: flex; 
-    /* Espaçamento entre os elementos */
     gap: 0.75rem;
-    /* Permite que os elementos quebrem a linha em telas menores */
     flex-wrap: wrap; 
     margin-bottom: 1rem;
 }
@@ -145,36 +145,51 @@ hr {
 #categoria-input-group #nova-categoria-input {
     /* Permite que ambos cresçam para ocupar o espaço */
     flex-grow: 1; 
-    /* Garante um tamanho base mínimo para não sumirem */
     min-width: 100px;
     
-    /* ... o resto dos seus estilos padronizados ... */
+    /* Estilos padronizados */
     padding: 0.65rem 1rem;
     font-size: 1rem;
     border: 1.5px solid var(--cor-borda, #d1d1d1);
     border-radius: 6px;
     background: #fafafa;
-    /* ... etc ... */
+    color: var(--cor-primaria-escura, #3b454f);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* O botão também precisa de ajustes para caber na linha */
+#categoria-input-group select:focus,
+#categoria-input-group #nova-categoria-input:focus {
+    border-color: var(--cor-primaria, #556270);
+    box-shadow: 0 0 6px rgba(85, 98, 112, 0.4);
+    outline: none;
+}
+
+/* Estilo para o botão de adicionar categoria */
 #btn-adicionar-categoria {
-    /* Garante que o botão não ocupe 100% da largura, permitindo que os outros itens fiquem ao lado */
+    /* Garante que o botão não ocupe 100% da largura */
     width: auto; 
-    /* ... o resto dos seus estilos ... */
+    padding: 0.65rem 1.1rem; /* Padronizado */
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: var(--cor-secundaria, #c7d0ca);
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
 }
-#btn-adicionar-categoria:hover {
-    background-color: #0056b3;
+
+#btn-adicionar-categoria:hover,
+#btn-adicionar-categoria:focus {
+    background-color: var(--cor-secundaria-escura, #a3b0a1);
+    box-shadow: 0 0 8px rgba(163, 176, 161, 0.7);
+    outline: none;
 }
+
+
 /* Estilo para o container do filtro */
 #filtro-container {
-    padding: 15px 0 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#filtro-container {
+    padding: 15px 0 0; /* padding original */
     margin-top: 1rem;
     display: flex;
     align-items: center;
@@ -190,7 +205,8 @@ hr {
 }
 
 #filtro-container select {
-    padding: 0.6rem 6.3rem;
+    flex-grow: 1; /* Permite que o select do filtro ocupe o espaço restante */
+    padding: 0.6rem 1rem; /* Padronizado o padding */
     font-size: 1rem;
     border-radius: 6px;
     border: 1.5px solid var(--cor-borda, #d1d1d1);
@@ -204,6 +220,7 @@ hr {
     box-shadow: 0 0 6px rgba(85, 98, 112, 0.4);
     outline: none;
 }
+
 /* Estilo para o novo botão de Ação Secundária (Visualizar Gráfico) */
 .btn-secundario {
     background-color: #6c757d; /* Cor cinza, neutra */
@@ -218,7 +235,8 @@ hr {
 #grafico-container {
     padding-top: 20px;
 }
-/* Adicione (ou ajuste) no seu style.css se quiser uma cor específica para a Exportação */
+
+/* Estilo para o botão de Exportação */
 #btn-exportar {
     background-color: #17a2b8; /* Cor azul-ciano para exportação/download */
     margin-top: 10px;
@@ -227,31 +245,29 @@ hr {
 #btn-exportar:hover {
     background-color: #138496;
 }
-/* ... seu CSS anterior ... */
 
 /* -------------------------------------- */
-/* ESTILOS PARA SIMULAR A TABELA/GRADE */
+/* ESTILOS PARA O HISTÓRICO (Com Scroll) */
 /* -------------------------------------- */
 
-/* 1. Estilo para o cabeçalho do Histórico (Para dar a sensação de coluna) */
+/* 1. Estilo para o cabeçalho do Histórico */
 #historico-transacoes-cabecalho {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-bottom: 2px solid #adb5bd;
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+    border-bottom: 2px solid #adb5bd; 
     padding: 10px;
-    margin-bottom: 0;
+    margin-bottom: 0; 
     list-style: none;
     font-size: 0.9em;
-    /* Adicionando border-radius no topo para combinar com a lista */
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 }
 
-/* Garante que o UL da lista não tenha margem em cima */
+/* Garante que o UL da lista não tenha margem em cima e ADICIONA SCROLL */
 #historico-transacoes {
     padding: 0;
     margin: 0;
@@ -259,10 +275,9 @@ hr {
     border-top: none;
     
     /* === LÓGICA DA BARRA DE ROLAGEM AQUI === */
-    /* Define uma altura máxima para o container */
-    max-height: 250px; /* Ajuste este valor conforme a sua preferência */
-    /* Ativa a barra de rolagem vertical se o conteúdo exceder a altura máxima */
+    max-height: 250px; 
     overflow-y: auto;
+    
     /* Arredondamento inferior para a lista */
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
@@ -275,7 +290,7 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9em; /* Adicionado para consistência */
+    font-size: 0.9em;
     transition: background-color 0.1s;
 }
 

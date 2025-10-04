@@ -159,19 +159,17 @@ hr {
 
 #categoria-input-group select:focus,
 #categoria-input-group #nova-categoria-input:focus {
-    border-color: var(--cor-primaria, #556270);
-    box-shadow: 0 0 6px rgba(85, 98, 112, 0.4);
+    border-color: var(--cor-primaria, #000000);
+    box-shadow: 0 0 6px rgba(45, 45, 45, 0.79);
     outline: none;
 }
 
-/* Estilo para o botão de adicionar categoria */
 #btn-adicionar-categoria {
-    /* Garante que o botão não ocupe 100% da largura */
-    width: auto; 
-    padding: 0.65rem 1.1rem; /* Padronizado */
+    padding: 0.65rem 1.1rem;
     font-size: 1rem;
     font-weight: 600;
-    background-color: var(--cor-secundaria, #c7d0ca);
+    /* Mude para a cor primária (azul) */
+    background-color: var(--cor-primaria, #007bff); /* Usando a variável ou o fallback azul */
     border-radius: 8px;
     border: none;
     cursor: pointer;
@@ -181,11 +179,11 @@ hr {
 
 #btn-adicionar-categoria:hover,
 #btn-adicionar-categoria:focus {
-    background-color: var(--cor-secundaria-escura, #a3b0a1);
-    box-shadow: 0 0 8px rgba(163, 176, 161, 0.7);
+    /* Mude para a cor primária escura (azul mais escuro) */
+    background-color: var(--cor-primaria-escura, #0056b3); /* Usando a variável ou o fallback azul escuro */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.7); /* Ajusta a sombra para combinar com o azul */
     outline: none;
 }
-
 
 /* Estilo para o container do filtro */
 #filtro-container {

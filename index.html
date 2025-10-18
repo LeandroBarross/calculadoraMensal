@@ -16,17 +16,24 @@
             
             <label for="categoria">Categoria:</label>
             <div id="categoria-input-group">
+                <div id="gerenciador-categorias" hidden>
+    <h3>Gerenciar Categorias</h3>
+    <ul id="lista-gerenciamento-categorias"></ul>
+    <button type="button" id="btn-fechar-gerenciador">Fechar</button>
+</div>
                 <select id="categoria">
                     <option value="Casa">Casa</option>
                     <option value="Lazer">Lazer</option>
                     <option value="Comida">Comida</option>
                     <option value="Outros">Outros</option>
                 </select>
-                
                 <input type="text" id="nova-categoria-input" placeholder="Nova Categoria">
                 <button type="button" id="btn-adicionar-categoria">Adicionar</button>
-            </div>
-            
+                <button type="button" id="btn-gerenciar-categorias">Gerenciar categorias</button>
+                </div> 
+
+                <hr>
+                
             <label for="valor">Valor (R$):</label>
             <input type="number" id="valor" step="0.01" min="0" required>
             

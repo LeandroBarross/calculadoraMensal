@@ -1,4 +1,4 @@
-// 1. Seleção de Elementos e Variáveis Globais
+// Seleção de Elementos e Variáveis Globais
 const form = document.getElementById('form-gasto');
 const descricaoInput = document.getElementById('descricao');
 const categoriaInput = document.getElementById('categoria');
@@ -8,18 +8,14 @@ const historicoTransacoes = document.getElementById('historico-transacoes');
 const totalGastosElement = document.getElementById('total-gastos');
 const btnLimpar = document.getElementById('btn-limpar');
 
-// Elementos para Novas Categorias
 const novaCategoriaInput = document.getElementById('nova-categoria-input');
 const btnAdicionarCategoria = document.getElementById('btn-adicionar-categoria');
 
-// Elementos para Filtro
 const filtroCategoria = document.getElementById('filtro-categoria'); 
 
-// Elementos para Gráfico
 const graficoContainer = document.getElementById('grafico-container'); 
 const btnVisualizarGrafico = document.getElementById('btn-visualizar-grafico');
 
-// Elemento para Exportação
 const btnExportar = document.getElementById('btn-exportar'); 
 
 let gastos = [];
@@ -27,15 +23,20 @@ let categorias = ["Casa", "Lazer", "Comida", "Outros"];
 let indiceEmEdicao = null; 
 let chartInstance = null; // Instância do Chart.js
 
+// Novos seletores para gerenciamento de categorias
+const btnGerenciarCategorias = document.getElementById('btn-gerenciar-categorias');
+const gerenciadorCategorias = document.getElementById('gerenciador-categorias');
+const listaGerenciamentoCategorias = document.getElementById('lista-gerenciamento-categorias');
+const btnFecharGerenciador = document.getElementById('btn-fechar-gerenciador');
+
 // ----------------------------------------------------------------------
-// PERSISTÊNCIA E UTILS
+// PERSISTÊNCIA E UTILITÁRIOS
 // ----------------------------------------------------------------------
 
 const formatarMoeda = (valor) => {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 };
 
-// Funções para Gastos
 const salvarGastos = () => {
     localStorage.setItem('gastosSalvos', JSON.stringify(gastos));
 };
@@ -48,7 +49,6 @@ const carregarGastos = () => {
     atualizarTudo(); 
 };
 
-// Funções para Categorias
 const salvarCategorias = () => {
     localStorage.setItem('categoriasSalvas', JSON.stringify(categorias));
 };
@@ -69,13 +69,13 @@ const popularSelectCategoria = () => {
     categoriaInput.innerHTML = ''; 
     filtroCategoria.innerHTML = ''; 
     
-    // 1. Adiciona a opção "Mostrar Todos" ao filtro
+    // Adiciona a opção "Mostrar Todos" ao filtro
     const optTodos = document.createElement('option');
     optTodos.value = 'todos';
     optTodos.textContent = 'Mostrar Todos os Gastos';
     filtroCategoria.appendChild(optTodos);
 
-    // 2. Adiciona as categorias a ambos os selects
+    // Adiciona as categorias a ambos os selects
     categorias.forEach(cat => {
         const optionForm = document.createElement('option');
         optionForm.value = cat;
@@ -88,24 +88,18 @@ const popularSelectCategoria = () => {
         filtroCategoria.appendChild(optionFiltro);
     });
 };
-// NOVO: Função para desenhar o gráfico de pizza, agora com porcentagens no tooltip
+
 const desenharGrafico = (gastosPorCategoria) => {
     const canvas = document.getElementById('grafico-categorias');
-    
     if (!canvas) return; 
 
-    // Destroi instância anterior antes de criar nova
     if (chartInstance) {
         chartInstance.destroy();
     }
     
     const labels = Object.keys(gastosPorCategoria);
     const dataValues = Object.values(gastosPorCategoria);
-    
-    // Calcula o total geral para a porcentagem
     const totalGeral = dataValues.reduce((sum, value) => sum + value, 0);
-
-    // Gera cores aleatórias para melhor visualização
     const cores = labels.map(() => `hsl(${Math.random() * 360}, 70%, 50%)`);
 
     chartInstance = new Chart(canvas, {
@@ -121,48 +115,33 @@ const desenharGrafico = (gastosPorCategoria) => {
         options: {
             responsive: true,
             plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: false,
-                },
-                // NOVO: CONFIGURAÇÃO DE TOOLTIPS
+                legend: { position: 'top' },
+                title: { display: false },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
                             const label = context.label || '';
                             const valor = context.parsed;
-                            
-                            // Calcula a porcentagem
-                            const porcentagem = totalGeral === 0 ? 
-                                0 : 
-                                ((valor / totalGeral) * 100).toFixed(1);
-                            
-                            // Formata o valor para moeda (reutilizando a função)
+                            const porcentagem = totalGeral === 0 ? 0 : ((valor / totalGeral) * 100).toFixed(1);
                             const valorFormatado = formatarMoeda(valor);
-
                             return `${label}: ${valorFormatado} (${porcentagem}%)`;
                         }
                     }
                 }
-                // FIM DA NOVA CONFIGURAÇÃO
             }
         }
     });
 };
-// Função que exibe o histórico detalhado, baseada em uma lista de gastos (filtrada)
+
 const exibirHistorico = (listaDeGastos) => { 
     historicoTransacoes.innerHTML = '';
     
-    listaDeGastos.forEach((gasto, index) => { 
-        // Encontra o índice no array ORIGINAL (gastos) para exclusão/edição
+    listaDeGastos.forEach((gasto) => { 
         const indexOriginal = gastos.indexOf(gasto); 
         
         const listItem = document.createElement('li');
         listItem.setAttribute('data-index', indexOriginal); 
         
-        // Estrutura do item do histórico com botões de Ação
         listItem.innerHTML = `
             <span style="width:35%;">${gasto.descricao}</span>
             <span style="width:25%;">${gasto.categoria}</span>
@@ -173,7 +152,6 @@ const exibirHistorico = (listaDeGastos) => {
             </div>
         `;
         
-        // Aplica o estilo flex para as colunas
         listItem.style.display = 'flex';
         listItem.style.justifyContent = 'space-between';
         listItem.style.alignItems = 'center';
@@ -182,7 +160,6 @@ const exibirHistorico = (listaDeGastos) => {
     });
 };
 
-// Função principal para calcular o resumo por categoria
 const calcularResumo = () => {
     const gastosPorCategoria = {};
     let totalGeral = 0;
@@ -201,7 +178,6 @@ const calcularResumo = () => {
     exibirResumo(gastosPorCategoria, totalGeral);
 };
 
-// Exibe o resumo na tela e chama o gráfico
 const exibirResumo = (resumo, totalGeral) => {
     resumoGastos.innerHTML = ''; 
 
@@ -218,8 +194,6 @@ const exibirResumo = (resumo, totalGeral) => {
     }
     
     totalGastosElement.textContent = formatarMoeda(totalGeral);
-    
-    // Sempre desenha/atualiza o gráfico (mesmo que esteja oculto)
     desenharGrafico(resumo); 
 };
 
@@ -227,7 +201,6 @@ const exibirResumo = (resumo, totalGeral) => {
 // FUNÇÃO CENTRAL DE ATUALIZAÇÃO E FILTRO
 // ----------------------------------------------------------------------
 
-// Aplica o filtro e chama a atualização de histórico
 const aplicarFiltro = () => {
     const categoriaSelecionada = filtroCategoria.value;
     let gastosFiltrados = gastos;
@@ -240,17 +213,81 @@ const aplicarFiltro = () => {
     calcularResumo();
 };
 
-
-// Função que chama a atualização geral (inicia pelo filtro)
 const atualizarTudo = () => {
     aplicarFiltro(); 
 };
 
 // ----------------------------------------------------------------------
+// FUNÇÕES DE GERENCIAMENTO DE CATEGORIAS (NOVAS)
+// ----------------------------------------------------------------------
+
+const popularGerenciadorCategorias = () => {
+    listaGerenciamentoCategorias.innerHTML = '';
+    categorias.forEach((cat, index) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <span>${cat}</span>
+            <button class="btn-excluir-cat" data-index="${index}" title="Excluir Categoria">X</button>
+        `;
+        listaGerenciamentoCategorias.appendChild(listItem);
+    });
+};
+
+const alternarGerenciadorCategorias = () => {
+    const estaOculto = gerenciadorCategorias.hasAttribute('hidden');
+    if (estaOculto) {
+        popularGerenciadorCategorias();
+        gerenciadorCategorias.removeAttribute('hidden');
+    } else {
+        gerenciadorCategorias.setAttribute('hidden', '');
+    }
+};
+
+const fecharGerenciador = () => {
+    gerenciadorCategorias.setAttribute('hidden', '');
+};
+
+const excluirCategoria = (index) => {
+    const categoriaParaExcluir = categorias[index];
+    
+    // Verifica se há gastos nessa categoria
+    const gastosNaCategoria = gastos.filter(gasto => gasto.categoria === categoriaParaExcluir);
+    
+    if (gastosNaCategoria.length > 0) {
+        // Move gastos para "Outros" e confirma exclusão
+        const confirmacao = confirm(`A categoria "${categoriaParaExcluir}" tem ${gastosNaCategoria.length} gasto(s). Eles serão movidos para "Outros". Deseja excluir a categoria?`);
+        if (!confirmacao) return;
+        
+        // Move os gastos
+        gastos.forEach(gasto => {
+            if (gasto.categoria === categoriaParaExcluir) {
+                gasto.categoria = 'Outros';
+            }
+        });
+        salvarGastos();
+    } else {
+        const confirmacao = confirm(`Tem certeza que deseja excluir a categoria "${categoriaParaExcluir}"?`);
+        if (!confirmacao) return;
+    }
+    
+    // Remove a categoria (exceto se for "Outros")
+    if (categoriaParaExcluir !== 'Outros') {
+        categorias.splice(index, 1);
+        salvarCategorias();
+        popularSelectCategoria();
+        atualizarTudo();
+        popularGerenciadorCategorias();  // Atualiza o gerenciador
+        // Atualiza o gerenciador também
+popularGerenciadorCategorias();
+        alert(`Categoria "${categoriaParaExcluir}" excluída com sucesso!`);
+    } else {
+        alert('A categoria "Outros" não pode ser excluída.');
+    }
+};
+// ----------------------------------------------------------------------
 // FUNÇÕES DE AÇÃO (GRÁFICO, EDIÇÃO, EXPORTAÇÃO, ETC.)
 // ----------------------------------------------------------------------
 
-// Função para mostrar/ocultar o gráfico
 const alternarVisualizacaoGrafico = () => {
     const estaOculto = graficoContainer.hasAttribute('hidden');
     
@@ -263,7 +300,6 @@ const alternarVisualizacaoGrafico = () => {
     }
 };
 
-// Adiciona nova categoria ao array e salva no localStorage
 const adicionarNovaCategoria = () => {
     const novaCat = novaCategoriaInput.value.trim();
     
@@ -278,36 +314,29 @@ const adicionarNovaCategoria = () => {
     }
 };
 
-// Função para converter dados para CSV e forçar o download
 const exportarParaCSV = () => {
     if (gastos.length === 0) {
         alert("Não há gastos para exportar.");
         return;
     }
 
-    // 1. Define o cabeçalho do arquivo CSV
     const cabecalho = ["Descricao", "Categoria", "Valor"].join(";") + "\n";
     
-    // 2. Converte os dados: cada gasto vira uma linha separada por ponto e vírgula (;)
     const linhas = gastos.map(gasto => {
-        // Usa replace('.', ',') para garantir que a formatação numérica seja compatível com CSV brasileiro
         const valorFormatado = gasto.valor.toFixed(2).replace('.', ',');
         return `${gasto.descricao};${gasto.categoria};R$ ${valorFormatado}`;
     }).join("\n");
     
     const csvContent = cabecalho + linhas;
 
-    // 3. Cria um objeto Blob para o arquivo
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     
-    // 4. Cria um link temporário para forçar o download
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     
     link.setAttribute("href", url);
     link.setAttribute("download", "gastos_mensais.csv");
     
-    // Simula o clique no link
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -315,8 +344,6 @@ const exportarParaCSV = () => {
     alert("Dados exportados para gastos_mensais.csv!");
 };
 
-
-// Carrega o gasto selecionado para o formulário
 const iniciarEdicao = (index) => {
     const gasto = gastos[index];
     
@@ -332,7 +359,6 @@ const iniciarEdicao = (index) => {
     alert(`Editando o gasto: ${gasto.descricao}. Altere os campos e clique em 'Salvar Edição'.`);
 };
 
-// Gerencia os cliques nos botões de Excluir e Editar
 const gerenciarAcoesHistorico = (e) => {
     const target = e.target;
     
@@ -349,7 +375,7 @@ const gerenciarAcoesHistorico = (e) => {
     }
 };
 
-// Adiciona um novo gasto ou salva a edição
+
 const adicionarGasto = (e) => {
     e.preventDefault(); 
 
@@ -369,15 +395,11 @@ const adicionarGasto = (e) => {
     };
 
     if (indiceEmEdicao !== null) {
-        // MODO EDIÇÃO
         gastos[indiceEmEdicao] = novoGastoOuEdicao;
-        
-        // Reseta o modo edição e o botão
         indiceEmEdicao = null;
         form.querySelector('button[type="submit"]').textContent = "Adicionar Gasto";
         alert("Gasto editado com sucesso!");
     } else {
-        // MODO ADIÇÃO NORMAL
         gastos.push(novoGastoOuEdicao);
         alert("Gasto adicionado com sucesso!");
     }
@@ -385,13 +407,11 @@ const adicionarGasto = (e) => {
     salvarGastos(); 
     atualizarTudo();
 
-    // Limpa o formulário
     descricaoInput.value = '';
     valorInput.value = '';
     descricaoInput.focus();
 };
 
-// Função para limpar todos os gastos
 const limparTodosGastos = () => {
     const confirmacao = confirm("Tem certeza que deseja zerar TODOS os seus gastos? Esta ação não pode ser desfeita.");
     
@@ -413,8 +433,15 @@ btnAdicionarCategoria.addEventListener('click', adicionarNovaCategoria);
 historicoTransacoes.addEventListener('click', gerenciarAcoesHistorico); 
 filtroCategoria.addEventListener('change', aplicarFiltro); 
 btnVisualizarGrafico.addEventListener('click', alternarVisualizacaoGrafico);
-btnExportar.addEventListener('click', exportarParaCSV); // NOVO OUVINTE DE EXPORTAÇÃO
+btnExportar.addEventListener('click', exportarParaCSV);
+// Novos event listeners para gerenciamento de categorias
+btnGerenciarCategorias.addEventListener('click', alternarGerenciadorCategorias);
+btnFecharGerenciador.addEventListener('click', fecharGerenciador);
+listaGerenciamentoCategorias.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-excluir-cat')) {
+        excluirCategoria(parseInt(e.target.getAttribute('data-index')));
+    }
+});
 
-// A ordem é importante: carrega categorias antes de carregar os gastos
 carregarCategorias();
 carregarGastos();

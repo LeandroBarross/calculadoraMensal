@@ -90,14 +90,14 @@ hr {
 
 /* Estilo para botões pequenos no histórico */
 .btn-historico {
-   width: 15px; 
+    width: 15px; 
     height: 15px;
     padding: 2px;
     margin: 15px; 
     font-size: 0.8em; 
     border: none;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -301,4 +301,68 @@ hr {
     width: 25px; 
     height: 25px;
     font-size: 0.8em; 
+}
+/* Novos estilos para gerenciamento de categorias */
+#gerenciador-categorias {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+}
+
+#gerenciador-categorias h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+    color: #007bff;
+}
+
+#lista-gerenciamento-categorias {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+#lista-gerenciamento-categorias li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.9em;
+}
+
+#lista-gerenciamento-categorias li:last-child {
+    border-bottom: none;
+}
+
+#btn-fechar-gerenciador {
+    margin-top: 10px;
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+#btn-fechar-gerenciador:hover {
+    background-color: #5a6268;
+}
+
+.btn-excluir-cat {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.btn-excluir-cat:hover {
+    background-color: #c82333;
 }
